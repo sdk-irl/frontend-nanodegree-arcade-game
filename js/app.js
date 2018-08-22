@@ -2,8 +2,8 @@
 var Enemy = function() {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
-
     // x pos
+    this.x = 0;
     // y pos
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
@@ -17,11 +17,13 @@ Enemy.prototype.update = function(dt) {
     // which will ensure the game runs at the same speed for
     // all computers.
 
-    //If enemy is not passed boundary
+    //If (enemy is not passed boundary) {
         //Move forward
         //Increment x by speed * dt
-    //else
+    //}
+    //else {
         //reset pos to start
+    //}
 };
 
 // Draw the enemy on the screen, required method for game
@@ -29,39 +31,69 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-// Now write your own player class
-// This class requires an update(), render() and
-// a handleInput() method.
-
-
+// Create the player class
 class Player {
-        constructor() {
-            this.xpos = 0;
-            this.ypos = 0;
-            this.sprite = 'images/char-horn-girl.png';
+    constructor() {
+        //lateral move distance
+        this.lat = (101);
+        //vertical move distance
+        this.vert = (83);
+        this.startX = this.lat;
+        this.startY = this.vert * 5 - 7;
+        this.x = this.startX;
+        this.y = this.startY;
+        this.sprite = 'images/char-horn-girl.png';
+    }
+    update() {
+        console.log('Player update works');
+            //check for collision
+                //Did player x and y collide with enemy
+            //check for win
+                //Did player x and y equal final tiles              
+    }
+    render() {
+        // Draw player sprite on current x and y coordinate position
+        // copied from Enemy class
+        ctx.drawImage(Resources.get(this.sprite), this.x, this.y);       
+    }
+    handleInput(key) {
+        //update player's x and y property according to input
+        switch(key) {
+            case 'right':
+                if (this.x < this.lat * 4) {
+                    console.log(this.x);
+                    this.x += this.lat;
+                }
+                else {
+                    this.x = 0;
+                }
+                    break;  
+            case 'left':
+                if (this.x >0) {
+                    this.x -= this.lat;
+                }
+                else {
+                    this.x = this.lat * 4;
+                }
+                break;
+            case 'up':
+                if (this.y > 0) {
+                    this.y -= this.vert;
+                }                   
+                break;
+            case 'down':
+                if (this.y < this.vert * 4) {
+                    this.y += this.vert;
+                }
+                else
+                break;
         }
-            update() {
-            console.log('Player update works')
-                //check for collision
-                    //Did player x and y collide with enemy
-                //check for win
-                    //Did player x and y equal final tiles              
-            }
-            render() {
-                // Draw player spirte on current x and y coordinate position
-                // copied from Enemy class
-                ctx.drawImage(Resources.get(this.sprite), this.x, this.y);       
-            }
-            handleInput(allowedKeys[e.keyCode]) {
-                console.log('Player handleInput works')
-                //update player's x and y property according to input
-            }
-            resetPlayer() {
-                console.log('Player resetPlayer works')
-                //set x and y to starting point x and y 
-            }
+    }
+    resetPlayer() {
+        console.log('Player resetPlayer works');
+        //set x and y to starting point x and y 
+    }
 }
-    
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
@@ -71,6 +103,7 @@ class Player {
 const player = new Player();
 
 //Init allEnemies array
+allEnemies = [];
 //For each enemy create and push new Enemy object into above array
 
 // This listens for key presses and sends the keys to your
@@ -82,8 +115,5 @@ document.addEventListener('keyup', function(e) {
         39: 'right',
         40: 'down'
     };
-
     player.handleInput(allowedKeys[e.keyCode]);
 });
-    
-
