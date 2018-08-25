@@ -1,13 +1,14 @@
 // Enemies our player must avoid
 class Enemy {
-    constructor(ypos) {
+    constructor(y, x, rate) {
+        const rowSpacing = 83;
         //lateral move distance
         this.lat = 101;
         //vertical move distance
-        this.vert = 65;
-        this.x = -50;
-        this.y = this.vert;
+        this.x = -this.lat * x;
+        this.y = y * rowSpacing - 5; //subtract 5 for positioning
         this.sprite = 'images/enemy-bug.png';
+        this.speed = rate;
     }
     // Update the enemy's position, required method for game
     // Parameter: dt, a time delta between ticks
@@ -15,11 +16,11 @@ class Enemy {
         //if enemy is not off the border
         if (this.x < this.lat * 5) {
             //Move forward and increment x by speed * dt for consistency across browsers
-            this.x += this.lat * dt;
+            this.x += this.lat * dt * this.speed;
         }
         //if enemy is past border reset enemy to original spot
         else {
-           this.x = -50;
+           this.x = -this.lat;
         }
     }
     // Draw the enemy on the screen, required method for game
@@ -27,8 +28,6 @@ class Enemy {
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     }
 }
-
-
 
 // Create the player class
 class Player {
@@ -38,17 +37,26 @@ class Player {
         //vertical move distance
         this.vert = 83;
         this.startX = this.lat;
-        this.startY = this.vert * 5 - 7;
+        this.startY = this.vert * 5 - 5; //subtract 5 for positioning
         this.x = this.startX;
         this.y = this.startY;
         this.sprite = 'images/char-horn-girl.png';
     }
     update() {
-        console.log('Player update works');
+        for(let enemy of allEnemies) {
             //check for collision
+            if((enemy.x + this.lat > //) && this.y === enemy.y ) {
+                console.log('i\'m hit!');
+            }
+        }
+
                 //Did player x and y collide with enemy
-            //check for win
-                //Did player x and y equal final tiles              
+
+            
+            //Win if player location equal final tiles 
+            if (this.y < 76) { 
+                console.log('player won!') // TODO How to reset game
+            }         
     }
     render() {
         // Draw player sprite on current x and y coordinate position, copied from Enemy class
@@ -106,21 +114,19 @@ const player = new Player();
 const allEnemies = [];
 
 //For each enemy create and push new Enemy object into above array
-const enemy1 = new Enemy();
-const enemy2 = new Enemy();
-const enemy3 = new Enemy();
-const enemy4 = new Enemy();
-allEnemies.push(enemy1);
-
-
+const enemy1 = new Enemy(1, 1, .8);
+const enemy2 = new Enemy(1, 3, .8);
+const enemy3 = new Enemy(2, 2, .6);
+const enemy4 = new Enemy(2, 3, .6);
+const enemy5 = new Enemy(3, .5, .4);
+const enemy6 = new Enemy(3, 5, .4);
+allEnemies.push(enemy1, enemy2, enemy3, enemy4, enemy5, enemy6);
 
 //for (let i = 0; i < 4; i++) {
 //    setTimeout(function() {
 //        allEnemies.push(new Enemy());
 //    }, 2000);
 //}
-
-
 
 
 // This listens for key presses and sends the keys to your
