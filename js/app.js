@@ -29,7 +29,7 @@ class Enemy {
     }
 }
 
-// Create the player class
+// The player class, which contains all methods and functions for the player in the game
 class Player {
     constructor() {
         //lateral move distance
@@ -42,28 +42,30 @@ class Player {
         this.y = this.startY;
         this.sprite = 'images/char-horn-girl.png';
     }
+    //Checks for collisions in game and wins
     update() {
         for(let enemy of allEnemies) {
             //check for collision
-            if((enemy.x + this.lat > //) && this.y === enemy.y ) {
-                console.log('i\'m hit!');
+            if((enemy.x + this.lat/1.75 > this.x && enemy.x < this.x + this.lat/1.75) && this.y === enemy.y) {
+                this.resetPlayer();
             }
         }
-
-                //Did player x and y collide with enemy
-
-            
             //Win if player location equal final tiles 
             if (this.y < 76) { 
-                console.log('player won!') // TODO How to reset game
+                setTimeout(function() {
+                    window.alert('You won! Congratulations, you made it across the field of enemy bugs!');
+                }, 200);
+                this.resetPlayer(); 
             }         
     }
+
+    // Draw player sprite on current x and y coordinate position, copied from Enemy class
     render() {
-        // Draw player sprite on current x and y coordinate position, copied from Enemy class
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);       
     }
+
+    //update player's x and y property according to input
     handleInput(key) {
-        //update player's x and y property according to input
         switch(key) {
             case 'right':
                 if (this.x < this.lat * 4) {
@@ -95,19 +97,16 @@ class Player {
                 break;
         }
     }
+
+    //set x and y to starting point x and y 
     resetPlayer() {
-        console.log('Player resetPlayer works');
-        //set x and y to starting point x and y 
         this.x = this.startX;
         this.y = this.startY;
     }
 }
 
-// Now instantiate your objects.
-// Place all enemy objects in an array called allEnemies
-// Place the player object in a variable called player
 
-//New Player object
+// Place the player object in a variable called player
 const player = new Player();
 
 //Init allEnemies array
@@ -119,8 +118,9 @@ const enemy2 = new Enemy(1, 3, .8);
 const enemy3 = new Enemy(2, 2, .6);
 const enemy4 = new Enemy(2, 3, .6);
 const enemy5 = new Enemy(3, .5, .4);
-const enemy6 = new Enemy(3, 5, .4);
-allEnemies.push(enemy1, enemy2, enemy3, enemy4, enemy5, enemy6);
+
+// Place all enemy objects in an array called allEnemies
+allEnemies.push(enemy1, enemy2, enemy3, enemy4, enemy5);
 
 //for (let i = 0; i < 4; i++) {
 //    setTimeout(function() {
