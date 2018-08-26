@@ -1,6 +1,24 @@
 frontend-nanodegree-arcade-game
 ===============================
 
-Students should use this [rubric](https://review.udacity.com/#!/projects/2696458597/rubric) for self-checking their submission. Make sure the functions you write are **object-oriented** - either class functions (like Player and Enemy) or class prototype functions such as Enemy.prototype.checkCollisions, and that the keyword 'this' is used appropriately within your class and class prototype functions to refer to the object the function is called upon. Also be sure that the **readme.md** file is updated with your instructions on both how to 1. Run and 2. Play your arcade game.
+This is a submission for a udacity frontend nanodegree program arcade game.
 
-For detailed instructions on how to get started, check out this [guide](https://docs.google.com/document/d/1v01aScPjSWCCWQLIpFqvg3-vXLH2e8_SZQKC8jNO0Dc/pub?embedded=true).
+What is this project?
+===============================
+The starter files for this game originally contained static pieces, an engine, and several other components like event listeners for arrow game keys. I added functionality to show the board, the player, the bugs. 
+
+I also added player and bug movement on the board, as well as collision and win detection.
+
+How to play the game
+===============================
+If you're familiar with "Frogger," this game works similarly. The goal of the game is to make it from the grass to the river, without hitting any bugs.
+
+You can use the arrow keys on your keyboard to control the player. The player moves left, right, forward and back.
+
+The enemy bugs move from left to right at different speeds. Move the player between the bugs, or if you collide, your player will be reset to the bottom of the screen.
+
+When you win, an alert will pop up, and your player will reset to the bottom of the screen so you can play again.
+
+Contributing
+===============================
+No pull requests accepted, because this is a class submission.
